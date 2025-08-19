@@ -9,7 +9,8 @@ class IMDBScraper:
         self.browser = browser
         self.parser = parser
         self.driver = browser.driver
-        self.filmes = []
+        self.movies = []
+        self.main_window = None
 
     def accept_cookies(self):
         try:
@@ -17,25 +18,45 @@ class IMDBScraper:
                 EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Accept all')]"))
             )
             button.click()
+            print("Cookies accepted")
         except Exception:
+            print("Cookie button not found or already accepted")
             pass
 
     def scrape_top_movies(self, limit: None):
         self.browser.open("https://www.imdb.com/chart/top/")
         self.accept_cookies()
-
+        
+        self.main_window = self.driver.current_window_handle
+        
+        self.browser.wait.until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, ".ipc-metadata-list-summary-item"))
+        )
+        
         movies_elements = self.driver.find_elements(By.CSS_SELECTOR, ".ipc-metadata-list-summary-item")
+        print(f"Found {len(movies_elements)} movie elements")
 
-        for index, items in enumerate(movies_elements[:limit], 1):
+        for i, element in enumerate(movies_elements[:limit], 1):
             try:
-                link = items.find_element(By.CSS_SELECTOR, "a").get_attribute("href")
-                print(f"\nProcessing {index}: {link}")
+                link = element.find_element(By.CSS_SELECTOR, "a").get_attribute("href")
+                print(f"\nProcessing movie {i}: {link}")
 
-                movie_data = self.parser.parse(link)
-                self.filmes.append(movie_data)
+                self.driver.execute_script("window.open('');")
+                self.driver.switch_to.window(self.driver.window_handles[1])
+                self.driver.get(link)
+                
+                movie_data = self.parser.parse()
+                self.movies.append(movie_data)
 
-                print(f"Coletado: {movie_data.get('Título')} ({movie_data.get('Ano')}) - Nota: {movie_data.get('Nota IMDb')}")
+                print(f"Collected: {movie_data.get('Título')} ({movie_data.get('Ano')}) - Rating: {movie_data.get('Nota IMDb')}")
+                
+                self.driver.close()
+                self.driver.switch_to.window(self.main_window)
+                
             except Exception as e:
-                print(f"Error to processing movies {index}: {e}")
+                print(f"Error processing movie {i}: {e}")
+                if len(self.driver.window_handles) > 1:
+                    self.driver.close()
+                self.driver.switch_to.window(self.main_window)
 
-        return self.filmes
+        return self.movies

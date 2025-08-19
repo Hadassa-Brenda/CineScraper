@@ -1,6 +1,6 @@
 import time
 from selenium.webdriver.common.by import By
-
+from selenium.webdriver.support import expected_conditions as EC
 from .browser_manager import BrowserManager 
 
 class MovieParser:
@@ -8,29 +8,47 @@ class MovieParser:
         self.browser = browser
         self.driver = browser.driver
 
-    def parse(self, link: str) -> dict:
-        self.driver.get(link)
-        time.sleep(1)
-
+    def parse(self) -> dict:
+        time.sleep(2)
+        
         return {
             "Título": self.safe_get_text("//h1"),
             "Ano": self.safe_get_text("//a[contains(@href, 'releaseinfo')]"),
-            "Nota IMDb": self.safe_get_text("//div[@data-testid='hero-rating-bar__aggregate-rating__score']/span").replace(",", "."),
-            "Link": link,
-            "Gêneros": ", ".join(self.safe_get_all("//div[@data-testid='genres']//a")),
+            "Nota IMDb": self.safe_get_rating(),
+            "Link": self.driver.current_url,
+            "Gêneros": self.safe_get_genres(),
             "Sinopse": self.safe_get_text("//span[@data-testid='plot-xl']"),
-            "Elenco Principal": ", ".join(self.safe_get_all("//a[@data-testid='title-cast-item__actor']")[:3])
+            "Elenco Principal": self.safe_get_cast()
         }
 
     def safe_get_text(self, xpath: str) -> str:
         try:
-            return self.browser.wait_for(By.XPATH, xpath).text
+            element = self.browser.wait.until(
+                EC.presence_of_element_located((By.XPATH, xpath))
+            )
+            return element.text.strip() if element.text else "N/A"
         except:
             return "N/A"
 
-    def safe_get_all(self, xpath: str) -> list:
+    def safe_get_rating(self) -> str:
         try:
-            return [el.text for el in self.browser.wait_for_all(By.XPATH, xpath)]
+            rating_text = self.safe_get_text("//div[@data-testid='hero-rating-bar__aggregate-rating__score']/span")
+            return rating_text.replace(",", ".") if rating_text != "N/A" else "N/A"
         except:
-            return ["N/A"]
+            return "N/A"
 
+    def safe_get_genres(self) -> str:
+        try:
+            genres_elements = self.driver.find_elements(By.XPATH, "//div[@data-testid='genres']//a")
+            genres = [genre.text for genre in genres_elements if genre.text]
+            return ", ".join(genres) if genres else "N/A"
+        except:
+            return "N/A"
+
+    def safe_get_cast(self) -> str:
+        try:
+            cast_elements = self.driver.find_elements(By.XPATH, "//a[@data-testid='title-cast-item__actor']")[:3]
+            cast = [actor.text for actor in cast_elements if actor.text]
+            return ", ".join(cast) if cast else "N/A"
+        except:
+            return "N/A"

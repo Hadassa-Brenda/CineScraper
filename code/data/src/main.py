@@ -11,7 +11,7 @@ def main():
         
         scraper = IMDBScraper(browser, parser)
         
-        filmes = scraper.scrape_top_movies(limit=10)
+        filmes = scraper.scrape_top_movies(limit=10) # Adjust limit as needed
         
         DataExporter.to_csv(filmes, filename="top_movies_imdb.csv")
     finally:
