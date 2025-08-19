@@ -3,7 +3,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from .browser_manager import BrowserManager
 from .movie_parser import MovieParser
 
-
 class IMDBScraper:
     def __init__(self, browser: BrowserManager, parser: MovieParser):
         self.browser = browser
