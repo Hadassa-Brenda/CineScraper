@@ -1,9 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-
-from Codigo.browser_manager import BrowserManager
-from Codigo.movie_parser import MovieParser
-
+from .browser_manager import BrowserManager
+from .movie_parser import MovieParser
 
 
 class IMDBScraper:
@@ -22,7 +20,7 @@ class IMDBScraper:
         except Exception:
             pass
 
-    def scrape_top_movies(self, limit: int = None):
+    def scrape_top_movies(self, limit: None):
         self.browser.open("https://www.imdb.com/chart/top/")
         self.accept_cookies()
 

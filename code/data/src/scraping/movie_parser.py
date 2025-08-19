@@ -1,9 +1,9 @@
 import time
-from browserManager import BrowserManager
 from selenium.webdriver.common.by import By
 
+from .browser_manager import BrowserManager 
+
 class MovieParser:
-    """Responsável por extrair dados de uma página de filme no IMDb."""
     def __init__(self, browser: BrowserManager):
         self.browser = browser
         self.driver = browser.driver
