@@ -2,7 +2,8 @@ CineScraper
 
 Projeto: Análise dos Top 250 Filmes do IMDb
 
-Descrição:
+Descrição
+
 Este projeto realiza uma análise dos Top 250 filmes do IMDb, explorando informações como notas, gêneros, diretores e outras métricas.
 
 O projeto inclui:
@@ -13,7 +14,7 @@ Processamento e limpeza dos dados para análise.
 
 CSV final pronto para importação no Power BI, permitindo a criação de dashboards interativos.
 
-Arquitetura do projeto:
+Arquitetura do projeto
 
 O projeto segue uma estrutura modular, organizada da seguinte forma:
 
@@ -28,13 +29,12 @@ src/
 ├─ main.py               # Script principal que orquestra o processo
 └─ .gitignore
 
-
-Ferramentas e bibliotecas utilizadas:
+Ferramentas e bibliotecas utilizadas
 
 Python – linguagem principal do projeto.
 
-Selenium – para automação de navegação e coleta de dados do IMDb.
+Selenium – automação de navegação e coleta de dados do IMDb.
 
-Pandas – para manipulação e análise de dados.
+Pandas – manipulação e análise de dados.
 
 CSV – formato final para exportação de dados e importação no Power BI.
