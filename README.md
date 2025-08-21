@@ -1,3 +1,40 @@
-# CineScraper
+CineScraper
 
-O projeto CineScraper organiza e analisa os dados do Top 250 filmes do IMDB a partir de um arquivo MDB. Utilizo Selenium e Pandas para limpar e estruturar os dados, que são depois visualizados no Power BI, gerando insights interativos e gráficos dinâmicos sobre os filmes mais bem avaliados.
+Projeto: Análise dos Top 250 Filmes do IMDb
+
+Descrição:
+Este projeto realiza uma análise dos Top 250 filmes do IMDb, explorando informações como notas, gêneros, diretores e outras métricas.
+
+O projeto inclui:
+
+Scripts em Python para coleta de dados do IMDb.
+
+Processamento e limpeza dos dados para análise.
+
+CSV final pronto para importação no Power BI, permitindo a criação de dashboards interativos.
+
+Arquitetura do projeto:
+
+O projeto segue uma estrutura modular, organizada da seguinte forma:
+
+src/
+├─ processing/           # Scripts para processamento e limpeza de dados
+│  └─ cleaning_data.py
+├─ scraping/             # Scripts para raspagem de dados do IMDb
+│  ├─ browser_manager.py
+│  ├─ imdb_scraper.py
+│  └─ movie_parser.py
+├─ utils/                # Funções utilitárias usadas em todo o projeto
+├─ main.py               # Script principal que orquestra o processo
+└─ .gitignore
+
+
+Ferramentas e bibliotecas utilizadas:
+
+Python – linguagem principal do projeto.
+
+Selenium – para automação de navegação e coleta de dados do IMDb.
+
+Pandas – para manipulação e análise de dados.
+
+CSV – formato final para exportação de dados e importação no Power BI.
