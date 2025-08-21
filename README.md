@@ -38,3 +38,13 @@ src/
 - **Pandas** – manipulação e análise de dados  
 - **CSV** – formato final para exportação de dados e importação no Power BI  
 
+## Dashboard Interativo
+
+O dashboard do CineScraper foi criado no Power BI.  
+
+**Baixar arquivo PBIX:**  
+[Download do Dashboard](https://app.powerbi.com/onedrive/open?pbi_source=ODSPViewer&driveId=b!K5ZHvIC9UkyFxm4xkHuT_D29WDYGKc9ItkPAf2trjMoveWp_mzeBSKQ_SxgSGA82&itemId=01E7CKJR46Z4HJQIEGIRA2WAWLF64EPOJ4)
+
+**Imagem Estática:**
+<img width="1123" height="593" alt="image" src="https://github.com/user-attachments/assets/4f2948af-de4b-4c32-91a6-0cdfb6df741d" />
+
