@@ -8,7 +8,7 @@ Este projeto realiza uma análise dos Top 250 filmes do IMDb, explorando informa
 
 - Notas  
 - Gêneros  
-- Diretores  
+- Sinopse 
 - Outras métricas relevantes  
 
 O projeto inclui:  
